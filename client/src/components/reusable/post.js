@@ -1,10 +1,9 @@
 import React,{Component} from 'react'
 import {Card,Col,Row,Button} from 'react-materialize'
 import Tag from './tag.js'
-import {addlike,removelike} from '../../action/post'
+import {removelike} from '../../action/post'
 import {connect} from 'react-redux'
-import {BrowserRouter as Router,Link} from 'react-router-dom'
-import {toast,ToastContainer} from 'react-toastify';
+import {Link} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import '../../css/postCard.css';
 class Post extends Component
@@ -22,34 +21,19 @@ class Post extends Component
     }
     componentWillMount()
     {
+       
         this.setState({
             upvotes:this.props.upvotes,
             downvotes:this.props.downvotes,
             tags:this.props.tags,
             company:this.props.company
-        })
-
-       this.props.tags.map((val,index)=>{
-           console.log(val["name"])
-       })
-        console.log(this.state)
+        })       
     }
     componentWillReceiveProps(nextProps)
     { 
-      if(nextProps.post.up)
-      {
-        this.setState({
-            upvotes:nextProps.post.up.upvotes
-        })
-        this.setState({
-          downvotes:nextProps.post.up.downvotes  
-        })
-      } 
+        
     }
-    doup(id)
-    {
-        this.props.addlike(id)
-    }
+   
     dodown(id)
     {
         this.props.removelike(id)
@@ -104,31 +88,32 @@ class Post extends Component
                 
             //     </center>
             // </Row>
-            <div class="post-card">
-            <h3>Lakshya Khera</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis eum consectetur voluptatum, voluptas quam sapiente omnis! Corrupti, quos quasi accusantium doloribus architecto eos fugit explicabo voluptatem expedita, veritatis, tempora exercitationem?</p>
-            <div class="post-img">
-                <img src="https://image.shutterstock.com/z/stock-photo-successful-business-group-working-at-the-office-1428144080.jpg" alt=""/>
-            </div>
-            <div class="userResp">
-                <div class="row mb-4 user-btn">
-                <i class="fas fa-thumbs-up col-2 pt-2"></i>
-                <Button floating large className="green" waves="light" icon="thumb_up" onClick={this.doup.bind(this,this.props.id2)} style={{marginLeft:10}}/>
+            
+            <div className="post-card">
+            <h3>{this.props.author.name}</h3>
+            <Link to={`/viewpost/${this.props.id2}`}>  <p>{this.props.content.substr(0,100)}</p></Link>
+            
+            <div className="userResp">
+                <div className="row mb-4 user-btn">
+                <i className="fas fa-thumbs-up col-2 pt-2"></i>
+                <Button floating large className="green" waves="light" icon="thumb_up" onClick={this.props.addlike} style={{marginLeft:10}}/>
+                <p>{this.state.upvotes.length}</p>
                 <Button
                         floating
                         large
                         className="red"
                         waves="light"
                         icon="thumb_down"
-                        onClick={this.dodown.bind(this,this.props.id2)}
+                        onClick={this.props.addlike}
                         style={{marginLeft:10}}
                 />
                 </div>
                 <div>
-                <input type="text" class="form-control comment" placeholder="Write Comment"/>
+                <input type="text" className="form-control comment" placeholder="Write Comment"/>
                 </div>
             </div>
             </div>
+            
             
         )
     }
@@ -137,4 +122,4 @@ class Post extends Component
 const mapStateToProps=state=>({
     post:state.update
 })
-export default connect(mapStateToProps,{addlike,removelike})(Post)
+export default connect(mapStateToProps,{removelike})(Post)

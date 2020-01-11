@@ -9,6 +9,8 @@ data.password=!isempty(data.password)?data.password:'';
 //data.mm=!isempty(data.mm)?data.mm:'';
 //data.yy=!isempty(data.yy)?data.yy:'';
 data.mobile=!isempty(data.mobile)?data.mobile:'';
+data.current=!isempty(data.current)?data.current:'';
+data.college=!isempty(data.college)?data.college:''
 if(Validator.isEmpty(data.name))
 {
   error.name="Name is required";
@@ -24,12 +26,26 @@ if(Validator.isEmpty(data.email))
 }
 if(!Validator.isEmail(data.email))
 {
-  error.email="Invalid email"
+  error.email2="Invalid email"
 }
 if(!Validator.isLength(data.password,{min:6,max:30}))
 {
   error.password="Password must be of 6 digit";
 }
+if(!Validator.isLength(data.mobile,{min:10,max:10}))
+{
+    error.mobile="Invalid Number"
+}
+if(Validator.isEmpty(data.current))
+{
+  error.current="Current year is required/if Passout add Passout";
+}
+
+if(Validator.isEmpty(data.current))
+{
+  error.college="College is required";
+}
+
 
 return{
   error,

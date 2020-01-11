@@ -1,4 +1,4 @@
-import {CURRENT_USER,GET_POSTS,ADD_LIKE,ADD_POST,GET_COMPANY,GET_LANG,GET_LAN,GET_COMP,GET_COMP_DATA} from '../action/types'
+import {REQUEST_POST,SAVE_CHANGES,CURRENT_USER,GET_POSTS,GET_COMPANY,GET_LANG,GET_LAN,GET_COMP,GET_COMP_DATA} from '../action/types'
 const initialState={
     show:false,
     posts:[],
@@ -8,12 +8,19 @@ const initialState={
     lang:[],
     sortcomp:[],
     sortlang:[],
-    use:{}
+    use:{},
+    don:''
 }
 export default function(state=initialState,action)
 { 
-    console.log(action.payload)
+   
     switch(action.type){
+        
+       
+        case SAVE_CHANGES:return{
+            ...state,
+            don:action.payload
+        }
         case GET_LAN:return{
             ...state,
             sortlang:action.payload
@@ -42,8 +49,13 @@ export default function(state=initialState,action)
         
         case GET_POSTS:
            return{
-               ...state,
-             posts:action.payload
+                ...state,
+             posts:action.payload,
+             show:true
+            }
+        case REQUEST_POST:return {
+                ...state,
+                show:false
             }
         default:return state
     }

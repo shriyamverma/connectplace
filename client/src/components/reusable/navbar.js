@@ -13,29 +13,29 @@ e.preventDefault();
 this.props.logoutuser();
 }
 
-    render(){
+render()
+{
 const {isAuthenticatetd,user}=this.props.auth
-const authLinks=
-(
-    <Navbar  alignLinks="right" className="#212121 grey darken-4 cent">
-<NavItem>
-<Link to="/addPost" >Add Post</Link>
-</NavItem>
-<NavItem>
-<Link to="/dashboard" > Feeds</Link>
-</NavItem>
-<NavItem>
-<Link to="/settings" >Settings</Link>
+const authLinks=(
+<Navbar  alignLinks="right" className="#212121 grey darken-4 cent">
+<NavItem href="/dashboard">
+    Dashboard
 </NavItem>
 
-<NavItem>
-<a href="#" onClick={this.onLogoutClick.bind(this)}> Logout</a>
+<NavItem href="/addpost">
+AddPost
+</NavItem>
+<NavItem href="/settings">
+Settings
+</NavItem>
+
+<NavItem href="#" onClick={this.onLogoutClick.bind(this)}>
+Logout
 </NavItem>
 </Navbar>
 )
-const guestLinks=
-(
-    <Navbar  alignLinks="right" className="#212121 grey darken-4 cent">
+const guestLinks=(
+<Navbar  alignLinks="right" className="#212121 grey darken-4 cent">
 <NavItem>
 <Link to="/login">Login</Link>
 </NavItem>
@@ -44,10 +44,13 @@ const guestLinks=
 </NavItem>
 </Navbar>
 )
+
 return(<div>
 {isAuthenticatetd ? authLinks:guestLinks}
 </div>
 )
+
+
 }
 }
 Nav.propTypes={
